@@ -22,24 +22,24 @@ namespace APICatalogo.Controllers
             _context = context;
         }
         [HttpGet]
-        public ActionResult <IEnumerable<Produto>> Get()
+        public ActionResult<IEnumerable<Produto>> Get()
         {
             var produtos = _context.Produtos.ToList();
             //e se for null?
 
-            if(produtos is null)
+            if (produtos is null)
             {
                 return NotFound("Produtos não encontrados");
             }
             return produtos;
         }
-        [HttpGet("{id:int}", Name ="ObterPoduto")]
+        [HttpGet("{id:int}", Name = "ObterPoduto")]
 
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
 
-            if(produto is null)
+            if (produto is null)
             {
                 return NotFound("Produto não encontrado");
             }
@@ -55,15 +55,15 @@ namespace APICatalogo.Controllers
             _context.Produtos.Add(produto);
             _context.SaveChanges();
 
-            return new CreatedAtRouteResult("ObterProduto", 
+            return new CreatedAtRouteResult("ObterProduto",
                 new { id = produto.ProdutoId }, produto);
-            
+
         }
 
         [HttpPut("{id:int}")]
-       public ActionResult Put(int id, Produto produto)
+        public ActionResult Put(int id, Produto produto)
         {
-            if(id != produto.ProdutoId)
+            if (id != produto.ProdutoId)
             {
                 return BadRequest();
             }
